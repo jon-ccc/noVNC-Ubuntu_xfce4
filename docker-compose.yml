@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+     vnc-ubuntu:
+          build:
+               context: ./
+               dockerfile: ./Dockerfile
+          #定义主机名
+          container_name: vnc-ubuntu
+          #使用的镜像
+          #     image: ubuntu:vnc-v1
+          image: ubuntu-20.04-vnc:v0.1
+          #容器的映射端口
+          ports:
+               # - 5901:5901
+               - 8888:8888
+          environment:
+               - TZ=Asia/Shanghai
+               - VNC_PASS=${VNC_PASS}    # 改成你自己想要的密码
+               - GEOMETRY=${GEOMETRY}      # 屏幕分辨率，800×600/1024×768诸如此类的可自己调整
+               - DEPTH=${DEPTH} # 颜色   
+          #定义挂载点
+          #     volumes:
+          #       - ./vnc-data:/home/vncuser/.vnc
+          #docker 重启后，容器自启动
+          restart: always
+          #     command: /sbin/init
+          #     entrypoint: sleep inf
+          #     entrypoint: vncserver -geometry 1920x1200 :1 -localhost no 
